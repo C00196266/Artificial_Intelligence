@@ -18,7 +18,7 @@ private:
 public:
 	Game();
 	
-	void update(sf::Vector2f maxPos);
+	void update(sf::Vector2f maxPos, sf::Time time);
 
 	void draw(sf::RenderWindow &window);
 };

@@ -18,7 +18,7 @@ private:
 	float m_height;
 	sf::Vector2f m_center;
 
-	float m_angle;
+	float m_orientation;
 
 	sf::Sprite m_sprite;
 	sf::Texture m_texture;
@@ -37,6 +37,8 @@ public:
 	sf::Vector2f getCenter();
 
 	sf::Vector2f getVelocity();
+
+	float getOrientation();
 };
 
 #endif

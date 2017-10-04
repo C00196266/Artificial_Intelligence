@@ -20,7 +20,7 @@ Player::Player() {
 	
 	m_center = sf::Vector2f(m_pos.x + (m_width / 2), m_pos.y + (m_height / 2));
 
-	m_angle = 0;
+	m_orientation = 0;
 	m_speed = 0;
 
 	m_vel = sf::Vector2f(0, 0);
@@ -44,12 +44,12 @@ void Player::update(sf::Vector2f maxPos) {
 		}
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) || sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
 			if (m_speed > 0) {
-				m_angle += 0.05f;
+				m_orientation += 0.05f;
 			}
 		}
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) || sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
 			if (m_speed > 0) {
-				m_angle -= 0.05f;
+				m_orientation -= 0.05f;
 			}
 		}
 	}
@@ -61,12 +61,12 @@ void Player::update(sf::Vector2f maxPos) {
 	}
 
 	if (m_speed > 0) {
-		m_vel = sf::Vector2f(cos(m_angle) * m_speed, sin(m_angle) * m_speed);
+		m_vel = sf::Vector2f(cos(m_orientation) * m_speed, sin(m_orientation) * m_speed);
 		m_pos += m_vel;
 		m_center = sf::Vector2f(m_pos.x + (m_width / 2), m_pos.y + (m_height / 2));
 	}
 
-	m_sprite.setRotation((atan2(m_vel.y, m_vel.x) * 180 / 3.14) + 90);
+	m_sprite.setRotation((m_orientation * 180 / 3.14) + 90);
 
 	if (m_pos.x > (maxPos.x + m_sprite.getLocalBounds().width / 2)) {
 		m_pos.x = 0 - m_sprite.getLocalBounds().width;
@@ -95,4 +95,8 @@ sf::Vector2f Player::getCenter() {
 
 sf::Vector2f Player::getVelocity() {
 	return m_vel;
+}
+
+float Player::getOrientation() {
+	return m_orientation;
 }

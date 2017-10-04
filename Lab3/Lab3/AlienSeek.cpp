@@ -1,6 +1,6 @@
 #include "AlienSeek.h"
 
-AlienSeek::AlienSeek() {
+AlienSeek::AlienSeek(float maxSpeed) {
 	if (!m_image.loadFromFile("Alien Seek.png")) {
 		std::cout << "could not load image from file";
 	}
@@ -21,51 +21,117 @@ AlienSeek::AlienSeek() {
 
 	m_sprite.setOrigin(m_sprite.getLocalBounds().width / 2, m_sprite.getLocalBounds().height / 2);
 
-	m_angle = 0;
+	m_orientation = 0;
+	m_maxRotation = 2.0f;
+	m_rotation = 0;
 
-	m_radius = 120;
+	m_maxAcceleration = 50.0f;
+	m_linearAccel = sf::Vector2f(0,0);
+	m_angularAccel = sf::Vector2f(0, 0);
+
+	//m_radius = 120;
 
 	m_timeToTarget = 2;
 
 	m_vel = sf::Vector2f(0, 0);
 
 	m_currentTarget = sf::Vector2f(0, 0);
-	m_maxSpeed = 3.0f;
+	m_maxSpeed = maxSpeed;
 }
 
-void AlienSeek::update(sf::Vector2f maxPos, sf::Vector2f target) {
+void AlienSeek::update(sf::Vector2f maxPos, sf::Vector2f target, float targetOrientation, sf::Time time) {
 	if (target != m_currentTarget) {
 		m_currentTarget = target;
 	}
 
-	m_vel = m_currentTarget - m_center;
+	if (targetOrientation != m_currentTargetOrientation) {
+		m_currentTargetOrientation = targetOrientation;
+	}
+
+	m_linearAccel = (m_currentTarget - m_center) / m_timeToTarget;
+
+
+	float magnitudeAccel = sqrt((m_linearAccel.x * m_linearAccel.x) + (m_linearAccel.y * m_linearAccel.y));
+
+	if (magnitudeAccel > m_maxAcceleration) {
+		m_linearAccel = normalise(m_linearAccel) * m_maxAcceleration;
+	}
+
+	m_vel += m_linearAccel * time.asSeconds();
 
 	float magnitudeVel = sqrt((m_vel.x * m_vel.x) + (m_vel.y * m_vel.y));
 
-	if (magnitudeVel > m_radius) {
-		m_vel = m_vel / magnitudeVel;
-
-		m_vel *= m_maxSpeed;
-
-		if (magnitudeVel > 0) {
-			m_angle = atan2(-m_vel.x, m_vel.y);
-		}
+	if (magnitudeVel > m_maxSpeed) {
+		m_vel = normalise(m_vel) * m_maxSpeed;
 	}
 
-	else {
-		m_vel = m_vel / m_timeToTarget;
+	//////////////////////////////////////////////////////
+	float orientation = atan2(m_vel.x, m_vel.y);
 
-		if (magnitudeVel > m_maxSpeed) {
-			m_vel = m_vel / magnitudeVel;
-			m_vel *= m_maxSpeed;
-		}
+	// ALIGN //
+	m_rotation = orientation - m_orientation;
 
-		if (magnitudeVel > 0) {
-			m_angle = atan2(-m_vel.x, m_vel.y);
-		}
+	// map to range ???
+	if (m_rotation > m_maxRotation) {
+		m_rotation = m_maxRotation;
+	}
+	else if (m_rotation < -m_maxRotation) {
+		m_rotation = -m_maxRotation;
 	}
 
-	m_pos += m_vel;
+	// ???
+
+	float rotationSize = abs(m_rotation);
+
+	float targetRotation = m_maxRotation * rotationSize;
+
+	float angular = (targetRotation - m_rotation) / 2;
+
+	float angularaAbs = abs(angular);
+
+	if (angularaAbs > 4) {
+		angular /= angularaAbs * 4;
+	}
+
+	// END ALIGN //
+
+	/////////////////////////////////////////////////////////////////
+
+	//m_linearAccel = normalise(m_currentTarget - m_center) * m_maxAcceleration;
+	//
+	//m_vel = m_vel + m_linearAccel * time;
+
+	/////////////////////////////////////////////////////////////////
+
+	//m_vel = m_currentTarget - m_center;
+	//
+	//float magnitudeVel = sqrt((m_vel.x * m_vel.x) + (m_vel.y * m_vel.y));
+	//
+	//if (magnitudeVel > m_radius) {
+	//	m_vel = m_vel / magnitudeVel;
+	//
+	//	m_vel *= m_maxSpeed;
+	//
+	//	if (magnitudeVel > 0) {
+	//		m_angle = atan2(-m_vel.x, m_vel.y);
+	//	}
+	//}
+	//
+	//else {
+	//	m_vel = m_vel / m_timeToTarget;
+	//
+	//	if (magnitudeVel > m_maxSpeed) {
+	//		m_vel = m_vel / magnitudeVel;
+	//		m_vel *= m_maxSpeed;
+	//	}
+	//
+	//	if (magnitudeVel > 0) {
+	//		m_angle = atan2(-m_vel.x, m_vel.y);
+	//	}
+	//}
+
+	m_pos += m_vel * time.asSeconds();
+	m_orientation += angular * time.asSeconds();
 
 	if (m_pos.x > maxPos.x) {
 		m_pos.x = 0 - m_sprite.getLocalBounds().width;
@@ -83,11 +149,17 @@ void AlienSeek::update(sf::Vector2f maxPos, sf::Vector2f target) {
 
 	m_center = sf::Vector2f(m_pos.x + (m_width / 2), m_pos.y + (m_height / 2));
 
-	m_sprite.setRotation((m_angle * 180 / 3.14) + 180);
+	m_sprite.setRotation((m_orientation * 180 / 3.14) + 180);
 
 	m_sprite.setPosition(m_pos);
 }
 
 void AlienSeek::draw(sf::RenderWindow &window) {
 	window.draw(m_sprite);
+}
+
+sf::Vector2f AlienSeek::normalise(sf::Vector2f v) {
+	float magnitude = sqrt((v.x* v.x) + (v.y * v.y));
+
+	return (v / magnitude);
 }
