@@ -31,16 +31,15 @@ private:
 	float m_timeToTarget;
 
 	sf::Vector2f m_currentTarget;
-	float m_currentTargetOrientation;
 
 	sf::Sprite m_sprite;
 	sf::Texture m_texture;
 	sf::Image m_image;
 
 public:
-	AlienSeek(float maxSpeed);
+	AlienSeek();
 
-	void update(sf::Vector2f maxPos, sf::Vector2f target, float targetOrientation, sf::Time time);
+	void update(sf::Vector2f maxPos, sf::Vector2f target, sf::Time time);
 
 	void draw(sf::RenderWindow &window);
 

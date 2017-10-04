@@ -1,6 +1,6 @@
 #include "AlienSeek.h"
 
-AlienSeek::AlienSeek(float maxSpeed) {
+AlienSeek::AlienSeek() {
 	if (!m_image.loadFromFile("Alien Seek.png")) {
 		std::cout << "could not load image from file";
 	}
@@ -36,20 +36,15 @@ AlienSeek::AlienSeek(float maxSpeed) {
 	m_vel = sf::Vector2f(0, 0);
 
 	m_currentTarget = sf::Vector2f(0, 0);
-	m_maxSpeed = maxSpeed;
+	m_maxSpeed = 100.0f;
 }
 
-void AlienSeek::update(sf::Vector2f maxPos, sf::Vector2f target, float targetOrientation, sf::Time time) {
+void AlienSeek::update(sf::Vector2f maxPos, sf::Vector2f target,  sf::Time time) {
 	if (target != m_currentTarget) {
 		m_currentTarget = target;
 	}
 
-	if (targetOrientation != m_currentTargetOrientation) {
-		m_currentTargetOrientation = targetOrientation;
-	}
-
 	m_linearAccel = (m_currentTarget - m_center) / m_timeToTarget;
-
 
 	float magnitudeAccel = sqrt((m_linearAccel.x * m_linearAccel.x) + (m_linearAccel.y * m_linearAccel.y));
 

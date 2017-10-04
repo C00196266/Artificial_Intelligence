@@ -1,4 +1,4 @@
-﻿  AlienSeek.cpp
-c:\users\new user\desktop\artificial_intelligence\lab3\lab3\alienseek.cpp(147): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+﻿  AlienPursuit.cpp
+c:\users\new user\desktop\artificial_intelligence\lab3\lab3\alienpursuit.cpp(135): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
   Lab3.vcxproj -> C:\Users\New User\Desktop\Artificial_Intelligence\Lab3\Debug\Lab3.exe
   Lab3.vcxproj -> C:\Users\New User\Desktop\Artificial_Intelligence\Lab3\Debug\Lab3.pdb (Partial PDB)

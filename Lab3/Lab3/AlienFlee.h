@@ -14,13 +14,21 @@ private:
 
 	float m_maxSpeed;
 
+	float m_maxAcceleration;
+	sf::Vector2f m_linearAccel;
+	sf::Vector2f m_angularAccel;
+
 	float m_width;
 	float m_height;
 	sf::Vector2f m_center;
 
-	float m_angle;
+	float m_orientation;
+	float m_rotation;
+	float m_maxRotation;
 
 	int m_radius;
+
+	float m_timeToTarget;
 
 	sf::Vector2f m_currentTarget;
 
@@ -31,9 +39,11 @@ private:
 public:
 	AlienFlee();
 
-	void update(sf::Vector2f maxPos, sf::Vector2f target);
+	void update(sf::Vector2f maxPos, sf::Vector2f target, sf::Time time);
 
 	void draw(sf::RenderWindow &window);
+
+	sf::Vector2f normalise(sf::Vector2f v);
 };
 
 #endif
