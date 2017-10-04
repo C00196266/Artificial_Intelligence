@@ -1,0 +1,15 @@
+﻿  Player.cpp
+c:\users\nover\desktop\artificial_intelligence\lab2\lab2\player.cpp(69): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+  AlienWander.cpp
+c:\users\nover\desktop\artificial_intelligence\lab2\lab2\alienwander.cpp(69): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+  main.cpp
+c:\users\nover\desktop\artificial_intelligence\lab2\lab2\main.cpp(11): warning C4244: 'argument': conversion from 'float' to 'unsigned int', possible loss of data
+c:\users\nover\desktop\artificial_intelligence\lab2\lab2\main.cpp(13): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+  Game.cpp
+  AlienSeek.cpp
+c:\users\nover\desktop\artificial_intelligence\lab2\lab2\alienseek.cpp(71): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+  AlienFlee.cpp
+c:\users\nover\desktop\artificial_intelligence\lab2\lab2\alienflee.cpp(62): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+  Generating Code...
+  Lab2.vcxproj -> C:\Users\nover\Desktop\Artificial_Intelligence\Lab2\Debug\Lab2.exe
+  Lab2.vcxproj -> C:\Users\nover\Desktop\Artificial_Intelligence\Lab2\Debug\Lab2.pdb (Partial PDB)

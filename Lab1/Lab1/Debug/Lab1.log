@@ -1,0 +1,9 @@
+﻿  Player.cpp
+  MovingObject.cpp
+  main.cpp
+c:\users\nover\desktop\artificial_intelligence\lab1\lab1\main.cpp(11): warning C4244: 'argument': conversion from 'float' to 'unsigned int', possible loss of data
+c:\users\nover\desktop\artificial_intelligence\lab1\lab1\main.cpp(13): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+  Game.cpp
+  Generating Code...
+  Lab1.vcxproj -> C:\Users\nover\Desktop\Artificial_Intelligence\Lab1\Debug\Lab1.exe
+  Lab1.vcxproj -> C:\Users\nover\Desktop\Artificial_Intelligence\Lab1\Debug\Lab1.pdb (Partial PDB)
