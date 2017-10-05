@@ -13,10 +13,11 @@ private:
 	sf::Vector2f m_vel;
 
 	float m_maxSpeed;
+	float m_magnitudeVel;
 
 	float m_maxAcceleration;
 	sf::Vector2f m_linearAccel;
-	sf::Vector2f m_angularAccel;
+	float m_magnitudeAccel;
 
 	float m_width;
 	float m_height;
@@ -25,6 +26,11 @@ private:
 	float m_orientation;
 	float m_rotation;
 	float m_maxRotation;
+	float m_targetRotation;
+	float m_rotationSize;
+
+	float m_angularAccel;
+	float m_angularAbs;
 
 	float m_timeToTarget;
 

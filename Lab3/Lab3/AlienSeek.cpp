@@ -27,7 +27,6 @@ AlienSeek::AlienSeek() {
 
 	m_maxAcceleration = 50.0f;
 	m_linearAccel = sf::Vector2f(0,0);
-	m_angularAccel = sf::Vector2f(0, 0);
 
 	m_timeToTarget = 2;
 
@@ -44,17 +43,17 @@ void AlienSeek::update(sf::Vector2f maxPos, sf::Vector2f target,  sf::Time time)
 
 	m_linearAccel = (m_currentTarget - m_center) / m_timeToTarget;
 
-	float magnitudeAccel = sqrt((m_linearAccel.x * m_linearAccel.x) + (m_linearAccel.y * m_linearAccel.y));
+	m_magnitudeAccel = sqrt((m_linearAccel.x * m_linearAccel.x) + (m_linearAccel.y * m_linearAccel.y));
 
-	if (magnitudeAccel > m_maxAcceleration) {
+	if (m_magnitudeAccel > m_maxAcceleration) {
 		m_linearAccel = normalise(m_linearAccel) * m_maxAcceleration;
 	}
 
 	m_vel += m_linearAccel * time.asSeconds();
 
-	float magnitudeVel = sqrt((m_vel.x * m_vel.x) + (m_vel.y * m_vel.y));
+	m_magnitudeVel = sqrt((m_vel.x * m_vel.x) + (m_vel.y * m_vel.y));
 
-	if (magnitudeVel > m_maxSpeed) {
+	if (m_magnitudeVel > m_maxSpeed) {
 		m_vel = normalise(m_vel) * m_maxSpeed;
 	}
 
@@ -78,9 +77,9 @@ void AlienSeek::update(sf::Vector2f maxPos, sf::Vector2f target,  sf::Time time)
 
 	m_sprite.setPosition(m_pos);
 
-	float targetRotation = (atan2(m_vel.y, m_vel.x) * (180 / 3.14)) + 90;
+	m_targetRotation = (atan2(m_vel.y, m_vel.x) * (180 / 3.14)) + 90;
 
-	m_rotation = (targetRotation - m_orientation) / 0.1;
+	m_rotation = (m_targetRotation - m_orientation) / 0.1;
 
 	if (m_rotation > 3.14) {
 		m_rotation -= 2 * 3.14;
@@ -89,19 +88,19 @@ void AlienSeek::update(sf::Vector2f maxPos, sf::Vector2f target,  sf::Time time)
 		m_rotation += 2 * 3.14;
 	}
 
-	float rotationSize = abs(m_rotation);
+	m_rotationSize = abs(m_rotation);
 
-	targetRotation = m_maxRotation * rotationSize;
+	m_targetRotation = m_maxRotation * m_rotationSize;
 
-	float angular = (targetRotation - m_rotation);
+	m_angularAccel = (m_targetRotation - m_rotation);
 
-	float angularaAbs = abs(angular);
+	m_angularAbs = abs(m_angularAccel);
 
-	if (angularaAbs > 2) {
-		angular = (angular / angularaAbs) * 0.1;
+	if (m_angularAbs > 2) {
+		m_angularAccel = (m_angularAccel / m_angularAbs) * 0.1;
 	}
 
-	m_rotation += angular * time.asSeconds();
+	m_rotation += m_angularAccel * time.asSeconds();
 
 	if (m_rotation > m_maxRotation) {
 		m_rotation = m_maxRotation;

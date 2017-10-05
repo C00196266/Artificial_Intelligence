@@ -5,6 +5,7 @@
 #include "AlienSeek.h"
 #include "AlienFlee.h"
 #include "AlienPursuit.h"
+#include "AlienArrive.h"
 #include "Player.h"
 
 class Game {
@@ -13,6 +14,8 @@ private:
 	AlienSeek m_alienSeek;
 	AlienFlee m_alienFlee;
 	AlienPursuit m_alienPursuit;
+	AlienArrive m_alienArriveFast;
+	AlienArrive m_alienArriveSlow;
 	Player m_player;
 
 public:

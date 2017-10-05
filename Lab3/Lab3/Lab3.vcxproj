@@ -116,6 +116,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AlienArrive.cpp" />
     <ClCompile Include="AlienFlee.cpp" />
     <ClCompile Include="AlienPursuit.cpp" />
     <ClCompile Include="AlienSeek.cpp" />
@@ -125,6 +126,7 @@
     <ClCompile Include="Player.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AlienArrive.h" />
     <ClInclude Include="AlienFlee.h" />
     <ClInclude Include="AlienPursuit.h" />
     <ClInclude Include="AlienSeek.h" />

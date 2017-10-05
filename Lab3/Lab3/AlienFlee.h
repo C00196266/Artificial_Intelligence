@@ -26,8 +26,6 @@ private:
 	float m_rotation;
 	float m_maxRotation;
 
-	int m_radius;
-
 	float m_timeToTarget;
 
 	sf::Vector2f m_currentTarget;
