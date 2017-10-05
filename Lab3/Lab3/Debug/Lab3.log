@@ -1,8 +1,9 @@
-﻿  AlienSeek.cpp
-c:\users\nover\desktop\artificial_intelligence\lab3\lab3\alienseek.cpp(83): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-c:\users\nover\desktop\artificial_intelligence\lab3\lab3\alienseek.cpp(85): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\nover\desktop\artificial_intelligence\lab3\lab3\alienseek.cpp(88): warning C4305: '-=': truncation from 'double' to 'float'
-c:\users\nover\desktop\artificial_intelligence\lab3\lab3\alienseek.cpp(91): warning C4305: '+=': truncation from 'double' to 'float'
-c:\users\nover\desktop\artificial_intelligence\lab3\lab3\alienseek.cpp(103): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+﻿  AlienPursuit.cpp
+c:\users\nover\desktop\artificial_intelligence\lab3\lab3\alienpursuit.cpp(34): warning C4305: '=': truncation from 'double' to 'float'
+c:\users\nover\desktop\artificial_intelligence\lab3\lab3\alienpursuit.cpp(102): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+c:\users\nover\desktop\artificial_intelligence\lab3\lab3\alienpursuit.cpp(104): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\nover\desktop\artificial_intelligence\lab3\lab3\alienpursuit.cpp(107): warning C4305: '-=': truncation from 'double' to 'float'
+c:\users\nover\desktop\artificial_intelligence\lab3\lab3\alienpursuit.cpp(110): warning C4305: '+=': truncation from 'double' to 'float'
+c:\users\nover\desktop\artificial_intelligence\lab3\lab3\alienpursuit.cpp(122): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
   Lab3.vcxproj -> C:\Users\nover\Desktop\Artificial_Intelligence\Lab3\Debug\Lab3.exe
   Lab3.vcxproj -> C:\Users\nover\Desktop\Artificial_Intelligence\Lab3\Debug\Lab3.pdb (Partial PDB)

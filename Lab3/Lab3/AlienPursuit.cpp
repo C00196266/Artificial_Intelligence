@@ -22,18 +22,16 @@ AlienPursuit::AlienPursuit() {
 	m_sprite.setOrigin(m_sprite.getLocalBounds().width / 2, m_sprite.getLocalBounds().height / 2);
 
 	m_orientation = 0;
-	m_maxRotation = 30.0f;
+	m_maxRotation = 150.0f;
 	m_rotation = 0;
 
-	m_maxAcceleration = 50.0f;
+	m_maxAcceleration = 100.0f;
 	m_linearAccel = sf::Vector2f(0, 0);
 	m_angularAccel = sf::Vector2f(0, 0);
 
-	m_radius = 100;
-
 	m_timeToTarget = 2;
 	
-	m_maxTimePrediction = 50;
+	m_maxTimePrediction = 0.1;
 
 	m_vel = sf::Vector2f(0, 0);
 
@@ -62,7 +60,7 @@ void AlienPursuit::update(sf::Vector2f maxPos, sf::Vector2f target, sf::Vector2f
 	else {
 		m_timePrediction = distance / m_speed;
 	}
-
+	
 	m_currentTarget = m_currentTarget + m_currentTargetVel * m_timePrediction;
 
 	m_linearAccel = (m_currentTarget - m_center) / m_timeToTarget;
@@ -81,40 +79,7 @@ void AlienPursuit::update(sf::Vector2f maxPos, sf::Vector2f target, sf::Vector2f
 		m_vel = normalise(m_vel) * m_maxSpeed;
 	}
 
-	//////////////////////////////////////////////////////
-	float orientation = atan2(m_vel.x, m_vel.y);
-
-	// ALIGN //
-	m_rotation = orientation - m_orientation;
-
-	// map to range ???
-	if (m_rotation > m_maxRotation) {
-		m_rotation = m_maxRotation;
-	}
-	else if (m_rotation < -m_maxRotation) {
-		m_rotation = -m_maxRotation;
-	}
-
-	// ???
-
-	float rotationSize = abs(m_rotation);
-
-	float targetRotation = m_maxRotation * rotationSize;
-
-	float angular = (targetRotation - m_rotation) / 2;
-
-	float angularaAbs = abs(angular);
-
-	if (angularaAbs > 4) {
-		angular /= angularaAbs * 4;
-	}
-
-	// END ALIGN //
-
-	/////////////////////////////////////////////////////////////////
-
 	m_pos += m_vel * time.asSeconds();
-	m_orientation += angular * time.asSeconds();
 
 	if (m_pos.x > maxPos.x) {
 		m_pos.x = 0 - m_sprite.getLocalBounds().width;
@@ -132,9 +97,44 @@ void AlienPursuit::update(sf::Vector2f maxPos, sf::Vector2f target, sf::Vector2f
 
 	m_center = sf::Vector2f(m_pos.x + (m_width / 2), m_pos.y + (m_height / 2));
 
-	m_sprite.setRotation((m_orientation * 180 / 3.14) + 90);
-
 	m_sprite.setPosition(m_pos);
+
+	float targetRotation = (atan2(m_vel.y, m_vel.x) * (180 / 3.14)) + 90;
+
+	m_rotation = (targetRotation - m_orientation) / 0.1;
+
+	if (m_rotation > 3.14) {
+		m_rotation -= 2 * 3.14;
+	}
+	else if (m_rotation < -3.14) {
+		m_rotation += 2 * 3.14;
+	}
+
+	float rotationSize = abs(m_rotation);
+
+	targetRotation = m_maxRotation * rotationSize;
+
+	float angular = (targetRotation - m_rotation);
+
+	float angularaAbs = abs(angular);
+
+	if (angularaAbs > 2) {
+		angular = (angular / angularaAbs) * 0.1;
+	}
+
+	m_rotation += angular * time.asSeconds();
+
+	if (m_rotation > m_maxRotation) {
+		m_rotation = m_maxRotation;
+	}
+
+	else if (m_rotation < -m_maxRotation) {
+		m_rotation = -m_maxRotation;
+	}
+
+	m_orientation += m_rotation * time.asSeconds();
+
+	m_sprite.setRotation(m_orientation);
 }
 
 void AlienPursuit::draw(sf::RenderWindow &window) {
