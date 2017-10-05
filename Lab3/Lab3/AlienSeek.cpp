@@ -22,14 +22,12 @@ AlienSeek::AlienSeek() {
 	m_sprite.setOrigin(m_sprite.getLocalBounds().width / 2, m_sprite.getLocalBounds().height / 2);
 
 	m_orientation = 0;
-	m_maxRotation = 2.0f;
+	m_maxRotation = 120.0f;
 	m_rotation = 0;
 
 	m_maxAcceleration = 50.0f;
 	m_linearAccel = sf::Vector2f(0,0);
 	m_angularAccel = sf::Vector2f(0, 0);
-
-	//m_radius = 120;
 
 	m_timeToTarget = 2;
 
@@ -60,73 +58,7 @@ void AlienSeek::update(sf::Vector2f maxPos, sf::Vector2f target,  sf::Time time)
 		m_vel = normalise(m_vel) * m_maxSpeed;
 	}
 
-	//////////////////////////////////////////////////////
-	float orientation = atan2(m_vel.x, m_vel.y);
-
-	// ALIGN //
-	m_rotation = orientation - m_orientation;
-
-	// map to range ???
-	if (m_rotation > m_maxRotation) {
-		m_rotation = m_maxRotation;
-	}
-	else if (m_rotation < -m_maxRotation) {
-		m_rotation = -m_maxRotation;
-	}
-
-	// ???
-
-	float rotationSize = abs(m_rotation);
-
-	float targetRotation = m_maxRotation * rotationSize;
-
-	float angular = (targetRotation - m_rotation) / 2;
-
-	float angularaAbs = abs(angular);
-
-	if (angularaAbs > 4) {
-		angular /= angularaAbs * 4;
-	}
-
-	// END ALIGN //
-
-	/////////////////////////////////////////////////////////////////
-
-	//m_linearAccel = normalise(m_currentTarget - m_center) * m_maxAcceleration;
-	//
-	//m_vel = m_vel + m_linearAccel * time;
-
-	/////////////////////////////////////////////////////////////////
-
-	//m_vel = m_currentTarget - m_center;
-	//
-	//float magnitudeVel = sqrt((m_vel.x * m_vel.x) + (m_vel.y * m_vel.y));
-	//
-	//if (magnitudeVel > m_radius) {
-	//	m_vel = m_vel / magnitudeVel;
-	//
-	//	m_vel *= m_maxSpeed;
-	//
-	//	if (magnitudeVel > 0) {
-	//		m_angle = atan2(-m_vel.x, m_vel.y);
-	//	}
-	//}
-	//
-	//else {
-	//	m_vel = m_vel / m_timeToTarget;
-	//
-	//	if (magnitudeVel > m_maxSpeed) {
-	//		m_vel = m_vel / magnitudeVel;
-	//		m_vel *= m_maxSpeed;
-	//	}
-	//
-	//	if (magnitudeVel > 0) {
-	//		m_angle = atan2(-m_vel.x, m_vel.y);
-	//	}
-	//}
-
 	m_pos += m_vel * time.asSeconds();
-	m_orientation += angular * time.asSeconds();
 
 	if (m_pos.x > maxPos.x) {
 		m_pos.x = 0 - m_sprite.getLocalBounds().width;
@@ -144,9 +76,44 @@ void AlienSeek::update(sf::Vector2f maxPos, sf::Vector2f target,  sf::Time time)
 
 	m_center = sf::Vector2f(m_pos.x + (m_width / 2), m_pos.y + (m_height / 2));
 
-	m_sprite.setRotation((m_orientation * 180 / 3.14) + 180);
-
 	m_sprite.setPosition(m_pos);
+
+	float targetRotation = (atan2(m_vel.y, m_vel.x) * (180 / 3.14)) + 90;
+
+	m_rotation = (targetRotation - m_orientation) / 0.1;
+
+	if (m_rotation > 3.14) {
+		m_rotation -= 2 * 3.14;
+	}
+	else if (m_rotation < -3.14) {
+		m_rotation += 2 * 3.14;
+	}
+
+	float rotationSize = abs(m_rotation);
+
+	targetRotation = m_maxRotation * rotationSize;
+
+	float angular = (targetRotation - m_rotation);
+
+	float angularaAbs = abs(angular);
+
+	if (angularaAbs > 2) {
+		angular = (angular / angularaAbs) * 0.1;
+	}
+
+	m_rotation += angular * time.asSeconds();
+
+	if (m_rotation > m_maxRotation) {
+		m_rotation = m_maxRotation;
+	}
+
+	else if (m_rotation < -m_maxRotation) {
+		m_rotation = -m_maxRotation;
+	}
+
+	m_orientation += m_rotation * time.asSeconds();
+
+	m_sprite.setRotation(m_orientation);
 }
 
 void AlienSeek::draw(sf::RenderWindow &window) {
