@@ -25,7 +25,7 @@ AlienSeek::AlienSeek() {
 	m_maxRotation = 120.0f;
 	m_rotation = 0;
 
-	m_maxAcceleration = 50.0f;
+	m_maxAcceleration = 20.0f;
 	m_linearAccel = sf::Vector2f(0,0);
 
 	m_timeToTarget = 2;
@@ -33,7 +33,7 @@ AlienSeek::AlienSeek() {
 	m_vel = sf::Vector2f(0, 0);
 
 	m_currentTarget = sf::Vector2f(0, 0);
-	m_maxSpeed = 100.0f;
+	m_maxSpeed = 150.0f;
 }
 
 void AlienSeek::update(sf::Vector2f maxPos, sf::Vector2f target,  sf::Time time) {

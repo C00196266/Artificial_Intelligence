@@ -1,0 +1,9 @@
+﻿  main.cpp
+c:\users\nover\desktop\artificial_intelligence\lab7\lab7\main.cpp(21): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+c:\users\nover\desktop\artificial_intelligence\lab7\lab7\main.cpp(124): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\nover\desktop\artificial_intelligence\lab7\lab7\main.cpp(124): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\nover\desktop\artificial_intelligence\lab7\lab7\main.cpp(137): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\nover\desktop\artificial_intelligence\lab7\lab7\main.cpp(146): warning C4018: '<': signed/unsigned mismatch
+c:\users\nover\desktop\artificial_intelligence\lab7\lab7\main.cpp(150): warning C4018: '<': signed/unsigned mismatch
+  Lab7.vcxproj -> C:\Users\nover\Desktop\Artificial_Intelligence\Lab7\Debug\Lab7.exe
+  Lab7.vcxproj -> C:\Users\nover\Desktop\Artificial_Intelligence\Lab7\Debug\Lab7.pdb (Partial PDB)
